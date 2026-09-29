@@ -16,3 +16,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+版权所有 (c) 2026 wzh131213-dev
+
+特此授予任何人免费获得本软件及相关文档文件（以下简称“软件”）副本的许可，允许其不受限制地处理本软件，包括但不限于使用、复制、修改、合并、发布、分发、再许可和/或出售本软件副本的权利，并允许获准者在遵守以下条件的前提下这样做：
+
+上述版权声明和本许可声明应包含在软件的所有副本或实质性部分中。
+
+本软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于适销性、特定用途适用性和不侵权保证。在任何情况下，作者或版权所有者均不对任何索赔、损害或其他责任承担责任，无论该责任是因合同、侵权或其他原因引起的，也无论该责任是因本软件或其使用或交易而引起的。
