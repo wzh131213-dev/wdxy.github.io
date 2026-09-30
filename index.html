@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>我的西游：开放世界肉鸽原型 · 建筑 + 导航 5.18</title>
+    <title>我的西游：开放世界肉鸽原型 · 存档系统 5.28</title>
 
     <style>
         * {
@@ -58,55 +58,144 @@
         }
 
         #startScreen {
-            align-items: center;
-            justify-content: center;
+            align-items: stretch;
+            justify-content: flex-start;
             background:
-                radial-gradient(circle at 50% 35%, rgba(255, 220, 130, 0.22), transparent 35%),
-                linear-gradient(180deg, rgba(16, 22, 30, 0.30), rgba(8, 11, 16, 0.92));
-            backdrop-filter: blur(4px);
+                linear-gradient(90deg, rgba(8,10,12,0.88) 0%, rgba(8,10,12,0.66) 24%, rgba(8,10,12,0.18) 56%, rgba(8,10,12,0.05) 100%),
+                linear-gradient(0deg, rgba(5,7,8,0.72) 0%, transparent 34%, rgba(5,7,8,0.10) 100%);
+            backdrop-filter: none;
+            pointer-events: auto;
+        }
+
+        #startScreen::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 30% 42%, rgba(218,176,88,0.12), transparent 30%);
         }
 
         .start-card {
-            width: min(900px, 92vw);
-            max-height: 90vh;
-            overflow: auto;
-            padding: 38px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 22px;
-            background: rgba(17, 22, 28, 0.82);
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+            position: relative;
+            z-index: 2;
+            width: min(520px, 72vw);
+            max-height: none;
+            overflow: visible;
+            margin-left: clamp(28px, 7vw, 105px);
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            text-align: left;
         }
 
         .start-card h1 {
-            margin: 0 0 8px;
-            font-size: clamp(34px, 7vw, 68px);
-            letter-spacing: 5px;
+            margin: 0;
+            color: #ead29a;
+            font-family: "STKaiti", "KaiTi", "FZKai-Z03", "Microsoft YaHei", serif;
+            font-size: clamp(42px, 6.4vw, 82px);
+            font-weight: 500;
+            letter-spacing: 8px;
+            line-height: 1.05;
+            text-shadow: 0 3px 18px rgba(0,0,0,0.75), 0 0 35px rgba(0,0,0,0.35);
+        }
+
+        .start-card h1::after {
+            content: "";
+            display: block;
+            width: 54px;
+            height: 1px;
+            margin-top: 18px;
+            background: rgba(231,204,139,0.72);
         }
 
         .version {
-            display: inline-block;
-            margin: 8px 0 14px;
-            padding: 4px 12px;
-            border: 1px solid rgba(255,255,255,0.28);
-            border-radius: 999px;
-            background: rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.78);
-            font-size: 14px;
-            letter-spacing: 1px;
+            display: block;
+            margin: 10px 0 0;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            color: rgba(240,222,178,0.64);
+            font-size: 10px;
+            letter-spacing: 4px;
         }
 
         .subtitle {
-            color: #d8c59a;
-            margin-bottom: 28px;
-            font-size: 16px;
+            max-width: 310px;
+            color: rgba(235,225,199,0.72);
+            margin: 12px 0 30px;
+            font-size: 12px;
+            line-height: 1.9;
+            letter-spacing: 2px;
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 20px 0 26px;
+        .feature-grid,
+        .start-option-row {
+            display: none;
         }
+
+        #startButton {
+            width: 178px;
+            min-height: 42px;
+            margin: 0 0 10px;
+            padding: 10px 18px;
+            border: 1px solid rgba(226,199,133,0.54);
+            border-radius: 2px;
+            background: linear-gradient(90deg, rgba(82,62,30,0.78), rgba(47,39,25,0.72));
+            color: #f2dfaa;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.30);
+        }
+
+        #startButton:hover {
+            transform: translateX(4px);
+            border-color: rgba(239,213,154,0.90);
+        }
+
+        #continueButton {
+            display: block;
+            width: 178px;
+            min-height: 38px;
+            margin: 0;
+            padding: 8px 18px;
+            border: 0;
+            border-left: 1px solid rgba(230,207,158,0.38);
+            border-radius: 0;
+            background: transparent;
+            color: rgba(240,229,202,0.66);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        #continueButton:hover {
+            color: #f2dfaa;
+            border-color: rgba(240,211,147,0.78);
+            transform: translateX(4px);
+        }
+
+        #titleHint {
+            margin-top: 26px;
+            color: rgba(255,255,255,0.38);
+            font-size: 9px;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 700px) {
+            #startScreen {
+                background: linear-gradient(90deg, rgba(8,10,12,0.86), rgba(8,10,12,0.28)), linear-gradient(0deg, rgba(5,7,8,0.72), transparent 58%);
+            }
+            .start-card { width: 74vw; margin-left: 28px; }
+            .start-card h1 { font-size: clamp(38px, 11vw, 62px); letter-spacing: 6px; }
+            #startButton, #continueButton { width: 160px; }
+            .subtitle { max-width: 250px; font-size: 10px; }
+        }
+
 
         .feature {
             min-height: 95px;
@@ -441,6 +530,72 @@
             opacity: 1;
         }
 
+        #interactButton {
+            position: fixed;
+            left: 50%;
+            bottom: calc(112px + env(safe-area-inset-bottom, 0px));
+            transform: translateX(-50%);
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 190px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(13,18,23,0.78);
+            color: rgba(255,255,255,0.6);
+            font-family: inherit;
+            text-align: left;
+            cursor: pointer;
+            pointer-events: auto;
+            touch-action: manipulation;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        #interactButton .ib-icon { font-size: 24px; }
+        #interactButton .ib-text { display: flex; flex-direction: column; flex: 1; line-height: 1.25; }
+        #interactButton .ib-text b { font-size: 15px; }
+        #interactButton small { font-size: 11px; opacity: 0.85; }
+        #interactButton .ib-key {
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-size: 12px;
+            font-weight: 800;
+        }
+        #interactButton.ready {
+            color: #fff4d0;
+            border-color: rgba(240,201,103,0.9);
+            background: rgba(120,84,20,0.86);
+            box-shadow: 0 0 18px rgba(240,201,103,0.55);
+            animation: interactPulse 1.4s ease-in-out infinite;
+        }
+        #interactButton:active { transform: translateX(-50%) scale(0.95); }
+        @keyframes interactPulse {
+            50% { box-shadow: 0 0 6px rgba(240,201,103,0.3); }
+        }
+        @media (max-width: 900px), (pointer: coarse) {
+            #interactButton { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+            #interactButton .ib-key { display: none; }
+        }
+
+
+        /* 电脑端：右下角独立的互动按钮 */
+        @media (min-width: 901px) and (pointer: fine) {
+            #interactButton {
+                left: auto;
+                right: 28px;
+                bottom: 28px;
+                transform: none;
+                min-width: 210px;
+                padding: 12px 20px;
+                z-index: 18;
+            }
+            #interactButton:active { transform: scale(0.95); }
+            #interactButton .ib-icon { font-size: 28px; }
+            #interactButton .ib-text b { font-size: 17px; }
+        }
+
         #menuScreen,
         #partyScreen,
         #mapScreen {
@@ -709,6 +864,58 @@
             background: rgba(15,20,25,0.72);
             color: white;
             font-size: 13px;
+        }
+
+
+        /* ===== 5.22 视频式开场：标题页 / 启程西行 / 长安红毯 ===== */
+        #startScreen .start-card .version, #startScreen .subtitle, #startScreen #titleHint { display: none; }
+        #startScreen .tagline {
+            margin: 6px 0 44px; color: rgba(235,225,199,0.72);
+            font-size: 12px; letter-spacing: 3px;
+        }
+        #startScreen #continueButton, #startScreen #startButton, #startScreen #importButton {
+            display: block; width: 190px; margin: 0 0 6px; padding: 12px 6px;
+            background: transparent; border: 0; border-radius: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.24);
+            color: #efe6cf; font-size: 15px; letter-spacing: 3px; text-align: left;
+            box-shadow: none; cursor: pointer; transition: background .2s, padding .2s, color .2s;
+        }
+        #startScreen #continueButton:hover, #startScreen #startButton:hover, #startScreen #importButton:hover {
+            background: linear-gradient(90deg, rgba(255,240,200,0.16), transparent);
+            padding-left: 14px; color: #fff;
+        }
+        #settingsButton {
+            position: absolute; left: clamp(28px, 7vw, 105px); bottom: 34px; z-index: 3;
+            padding: 9px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(20,22,24,0.7); color: #efe6cf; font-size: 13px; cursor: pointer;
+        }
+        #voyage {
+            position: fixed; inset: 0; z-index: 110; display: none; overflow: hidden;
+            background: linear-gradient(#cfcac2 0%, #ece3d2 46%, #d9c4a0 62%);
+        }
+        #voyage.show { display: block; animation: voyageIn .6s ease; }
+        @keyframes voyageIn { from { opacity: 0; } }
+        #voyage .v-scene { position: absolute; left: 0; right: 0; bottom: 34%; width: 100%; height: 30%; }
+        #voyage .v-ground {
+            position: absolute; left: -10%; right: -10%; bottom: 0; height: 38%;
+            border-radius: 50% 50% 0 0 / 22px 22px 0 0; background: #2b2620;
+            box-shadow: 0 -3px 12px rgba(120,90,50,0.35); text-align: center; color: #efe6d2; padding-top: 7%;
+        }
+        #voyage .v-title { font-size: 20px; letter-spacing: 6px; margin-bottom: 14px; }
+        #voyage .v-text { font-size: 12px; opacity: .75; letter-spacing: 2px; margin-bottom: 12px; }
+        #voyage .v-bar { width: 220px; height: 3px; margin: 0 auto; background: rgba(255,255,255,0.18); }
+        #voyage .v-bar i { display: block; height: 100%; width: 0; background: #e9dcc0; }
+        #openingFade { position: fixed; inset: 0; z-index: 108; background: #000; opacity: 0; pointer-events: none; transition: opacity .7s; }
+        #openingCaption {
+            position: fixed; left: clamp(28px, 6vw, 90px); bottom: 12%; z-index: 107; display: none;
+            color: #f6ecd0; text-shadow: 0 2px 12px #000; transition: opacity .8s; pointer-events: none;
+        }
+        #openingCaption b { display: block; font-size: clamp(26px, 4vw, 44px); font-weight: 500; letter-spacing: 8px; font-family: "STKaiti","KaiTi",serif; }
+        #openingCaption span { display: block; margin-top: 8px; font-size: 14px; letter-spacing: 3px; opacity: .85; }
+        #openingSkip {
+            position: fixed; right: 20px; top: calc(16px + env(safe-area-inset-top, 0px)); z-index: 109; display: none;
+            padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.28);
+            background: rgba(15,17,19,0.6); color: #fff; font-size: 13px; cursor: pointer;
         }
 
         #loading {
@@ -1769,58 +1976,42 @@
 
 <div id="game"></div>
 
+<div id="voyage">
+    <svg class="v-scene" viewBox="0 0 1000 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <g fill="#b8ab96" opacity=".85">
+            <path d="M40 200 L55 120 L95 105 L125 130 L130 200Z"/><path d="M140 200 L150 140 L185 135 L190 200Z"/>
+            <path d="M240 200 L250 132 L285 120 L310 138 L312 200Z"/>
+            <path d="M700 200 L715 120 L765 108 L790 140 L792 200Z"/><path d="M830 200 L845 145 L900 130 L925 160 L930 200Z"/>
+        </g>
+        <g fill="#2b2620">
+            <path d="M420 200 L422 168 L410 168 L410 200Z" transform="translate(0,-16)"/>
+            <ellipse cx="480" cy="165" rx="17" ry="7"/><path d="M466 168h3v17h-3zM474 168h3v17h-3zM486 168h3v17h-3zM494 168h3v17h-3zM494 160l14-10 3 3-12 12z"/>
+            <rect x="524" y="150" width="4" height="35"/><circle cx="526" cy="146" r="4"/>
+            <rect x="562" y="152" width="4" height="33"/><circle cx="564" cy="148" r="4"/>
+            <rect x="602" y="154" width="4" height="31"/><circle cx="604" cy="150" r="4"/>
+            <rect x="416" y="150" width="4" height="35"/><circle cx="418" cy="146" r="4"/><rect x="404" y="146" width="28" height="2"/>
+        </g>
+    </svg>
+    <div class="v-ground">
+        <div class="v-title">启程西行</div>
+        <div class="v-text" id="voyageText">正在展开沿途风景 · 0%</div>
+        <div class="v-bar"><i id="voyageBar"></i></div>
+    </div>
+</div>
+<div id="openingFade"></div>
+<button id="openingSkip" type="button">跳过 ▸</button>
+<input id="saveFileInput" type="file" accept=".json,application/json" style="display:none">
+
 <div id="startScreen" class="screen active">
     <div class="start-card">
-        <h1>我的西游</h1>
-        <div class="version">v0.1.7</div>
-        <div class="subtitle">开放世界 · 肉鸽 · 自组取经队伍 · 每局重新生成路网 · 大路 ×5</div>
-
-        <div class="feature-grid">
-            <div class="feature">
-                <strong>🗺️ 每局不同世界</strong>
-                世界节点、道路、支路和资源点使用种子重新生成。
-            </div>
-
-            <div class="feature">
-                <strong>🐒 自己组队</strong>
-                从不同角色中选择伙伴，组合自己的取经队伍。
-            </div>
-
-            <div class="feature">
-                <strong>🛣️ 五倍大路</strong>
-                主干道路移动效率更高，偏离大路可以自由探索。
-            </div>
-
-            <div class="feature">
-                <strong>🌲 开放探索</strong>
-                不要求一直沿着道路走，可以跨越荒野寻找资源。
-            </div>
-
-            <div class="feature">
-                <strong>👥 其他队伍</strong>
-                世界里会出现其他取经队伍，它们会沿着自己的路线移动。
-            </div>
-
-            <div class="feature">
-                <strong>🚩 路牌与传送</strong>
-                激活路牌后，可以把已经探索过的区域作为快速旅行点。
-            </div>
-        </div>
-
-        <div class="start-option-row">
-            <div>
-                <strong>🧭 导航系统</strong>
-                <div class="start-option-desc">启用后显示路线箭头与右上角导航小地图。</div>
-            </div>
-            <label class="toggle-control">
-                <input id="navigationToggle" type="checkbox" checked>
-                <span class="toggle-track"><span class="toggle-thumb"></span></span>
-                <span id="navigationToggleText">已启用</span>
-            </label>
-        </div>
-
-        <button id="startButton" class="primary">开始新的一局</button>
+        <h1>西游同行</h1>
+        <div class="tagline">一卷山河 · 万里西行</div>
+        <button id="continueButton" type="button">继续旅程</button>
+        <button id="startButton" class="primary">开始西行</button>
+        <button id="importButton" type="button">上传存档</button>
+        <div id="titleHint">开放世界 · 随机路网 · 自由探索</div>
     </div>
+    <button id="settingsButton" type="button"><span>⚙</span> 设置</button>
 </div>
 
 <div id="hud">
@@ -1886,6 +2077,8 @@
             <button id="partyButton" class="hud-button">队伍</button>
             <button id="mapButton" class="hud-button">路网</button>
             <button id="newRunButton" class="hud-button">新一局</button>
+            <button id="saveDownloadButton" class="hud-button">下载存档</button>
+            <button id="saveUploadButton" class="hud-button">上传存档</button>
         </div>
     </div>
 </div>
@@ -1926,6 +2119,12 @@
         </div>
     </div>
 </div>
+
+<button id="interactButton" type="button" aria-label="互动" style="display:none">
+        <span class="ib-icon">✋</span>
+        <span class="ib-text"><b>互动</b><small id="interactButtonHint">附近没有可互动的东西</small></span>
+        <span class="ib-key">E</span>
+    </button>
 
 <div id="mobileControls">
     <div id="directionPad" aria-label="方向键">
@@ -2344,59 +2543,158 @@
         createRoadMeshes();
     }
 
+    /*
+        5.26 道路改成“连续贴地的带状网格”。
+        旧版把每一小段道路做成一块水平的平板，放在该段中点的高度，
+        遇到坡度就会一块一块地悬空或陷进地里，拐弯处还会出现缝隙和重叠。
+        现在每条道路只生成一条网格：沿路线平滑重采样，
+        横向每个顶点都直接取 terrainHeight，所以路面连续、平整并紧贴地形。
+    */
+    // 与 createTerrain 的 PlaneGeometry 三角剖分完全一致的“网格表面高度”。
+    // 直接用 terrainHeight 会在凹地（河谷）比粗网格表面低，路就会陷进地里。
+    function terrainSurfaceHeight(x, z) {
+        const n = CONFIG.terrainSegments;
+        const size = CONFIG.worldSize;
+        const cell = size / n;
+        const fx = THREE.MathUtils.clamp((x + size / 2) / cell, 0, n - 1e-6);
+        const fz = THREE.MathUtils.clamp((z + size / 2) / cell, 0, n - 1e-6);
+        const ix = Math.floor(fx);
+        const iz = Math.floor(fz);
+        const u = fx - ix;
+        const v = fz - iz;
+        const x0 = ix * cell - size / 2;
+        const z0 = iz * cell - size / 2;
+        const ha = terrainHeight(x0, z0);
+        const hb = terrainHeight(x0, z0 + cell);
+        const hc = terrainHeight(x0 + cell, z0 + cell);
+        const hd = terrainHeight(x0 + cell, z0);
+
+        return u + v <= 1
+            ? ha + u * (hd - ha) + v * (hb - ha)
+            : hc + (1 - u) * (hb - hc) + (1 - v) * (hd - hc);
+    }
+
+    /*
+        5.27 所有道路合并成“一体”：
+        1. 全部道路写进同一张网格、同一个材质、同一个高度偏移，
+           主路和支路不再是颜色不同、互相叠压的独立几何体；
+        2. 每条路的两端加圆形“路口盘”，填满相邻道路在拐角处
+           因为垂直切口留下的楔形缺口，路口和拐弯都是连续的一整块；
+        3. 道路两端本身也变成圆头，不再有方形断口。
+    */
     function createRoadMeshes() {
         clearGroup(roadGroup);
 
-        for (const road of roads) {
-            const width =
-                road.type === "main"
-                    ? CONFIG.roadWidth
-                    : CONFIG.branchWidth;
+        const LIFT = 0.14;
+        const positions = [];
+        const indices = [];
 
-            for (let i = 0; i < road.points.length - 1; i++) {
-                const a = road.points[i];
-                const b = road.points[i + 1];
+        const pushVertex = (x, z) => {
+            positions.push(x, terrainSurfaceHeight(x, z) + LIFT, z);
+            return positions.length / 3 - 1;
+        };
 
-                const midpoint = a.clone().add(b).multiplyScalar(0.5);
+        function addRibbon(points, width) {
+            const clean = [];
+            for (const p of points) {
+                const last = clean[clean.length - 1];
+                if (!last || Math.hypot(p.x - last.x, p.z - last.z) > 0.05) {
+                    clean.push(new THREE.Vector3(p.x, 0, p.z));
+                }
+            }
+            if (clean.length < 2) {
+                return;
+            }
 
-                const dx = b.x - a.x;
-                const dz = b.z - a.z;
+            const curve = new THREE.CatmullRomCurve3(clean, false, "centripetal");
+            const steps = Math.max(2, Math.ceil(curve.getLength() / 2.5));
+            const center = curve.getSpacedPoints(steps);
+            const across = 6;
+            const base = positions.length / 3;
 
-                const length = Math.sqrt(dx * dx + dz * dz);
+            for (let i = 0; i <= steps; i++) {
+                const prev = center[Math.max(0, i - 1)];
+                const next = center[Math.min(steps, i + 1)];
+                let tx = next.x - prev.x;
+                let tz = next.z - prev.z;
+                const len = Math.hypot(tx, tz) || 1;
+                tx /= len;
+                tz /= len;
 
-                const geometry = new THREE.PlaneGeometry(
-                    width,
-                    length
-                );
+                for (let j = 0; j <= across; j++) {
+                    const u = j / across - 0.5;
+                    pushVertex(
+                        center[i].x - tz * u * width,
+                        center[i].z + tx * u * width
+                    );
+                }
+            }
 
-                geometry.rotateX(-Math.PI / 2);
-
-                const material = new THREE.MeshStandardMaterial({
-                    color:
-                        road.type === "main"
-                            ? 0x9b8362
-                            : 0x7f705d,
-                    roughness: 1
-                });
-
-                const mesh = new THREE.Mesh(
-                    geometry,
-                    material
-                );
-
-                mesh.position.set(
-                    midpoint.x,
-                    midpoint.y + 0.06,
-                    midpoint.z
-                );
-
-                mesh.rotation.y = Math.atan2(dx, dz);
-
-                mesh.receiveShadow = true;
-
-                roadGroup.add(mesh);
+            for (let i = 0; i < steps; i++) {
+                for (let j = 0; j < across; j++) {
+                    const p = base + i * (across + 1) + j;
+                    const q = p + 1;
+                    const r = p + (across + 1);
+                    const t = r + 1;
+                    indices.push(p, q, r, q, t, r);
+                }
             }
         }
+
+        function addDisc(x, z, radius) {
+            const segments = 20;
+            const centerIndex = pushVertex(x, z);
+            const first = positions.length / 3;
+
+            for (let k = 0; k < segments; k++) {
+                const angle = (k / segments) * Math.PI * 2;
+                pushVertex(
+                    x + Math.cos(angle) * radius,
+                    z + Math.sin(angle) * radius
+                );
+            }
+            for (let k = 0; k < segments; k++) {
+                indices.push(centerIndex, first + (k + 1) % segments, first + k);
+            }
+        }
+
+        for (const road of roads) {
+            const width =
+                road.type === "main" ? CONFIG.roadWidth : CONFIG.branchWidth;
+
+            addRibbon(road.points, width);
+
+            const pts = road.points;
+            if (pts.length > 0) {
+                addDisc(pts[0].x, pts[0].z, width / 2);
+                addDisc(pts[pts.length - 1].x, pts[pts.length - 1].z, width / 2);
+            }
+        }
+
+        if (indices.length === 0) {
+            return;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute(
+            "position",
+            new THREE.Float32BufferAttribute(positions, 3)
+        );
+        geometry.setIndex(indices);
+        geometry.computeVertexNormals();
+
+        const mesh = new THREE.Mesh(
+            geometry,
+            new THREE.MeshStandardMaterial({
+                color: 0x9b8362,
+                roughness: 1,
+                polygonOffset: true,
+                polygonOffsetFactor: -2,
+                polygonOffsetUnits: -2
+            })
+        );
+        mesh.receiveShadow = true;
+        roadGroup.add(mesh);
     }
 
     /*
@@ -4816,6 +5114,14 @@
 
     window.addEventListener("blur", releaseAllDirections);
 
+    document.getElementById("interactButton").addEventListener("click", () => {
+        if (document.getElementById("interactButton").classList.contains("ready")) {
+            interactWithWorld();
+        } else {
+            showMessage("附近没有可互动的东西，靠近路牌、资源、山神庙或客栈再试");
+        }
+    });
+
     document.getElementById(
         "mobileInteract"
     ).addEventListener(
@@ -5379,6 +5685,13 @@
             }
         }
 
+        const interactButton = document.getElementById("interactButton");
+        interactButton.style.display =
+            document.getElementById("hud").style.display === "block" ? "flex" : "none";
+        interactButton.classList.toggle("ready", !!target && best < 12);
+        document.getElementById("interactButtonHint").textContent =
+            target && best < 12 ? target : "附近没有可互动的东西";
+
         if (target && best < 12) {
             interaction.textContent =
                 `按 E / 交互：${target}`;
@@ -5887,15 +6200,22 @@
     */
 
     let runNumber = 0;
+    let pendingSeed = null;      // 读档时指定的世界种子
+    let savingEnabled = false;   // 玩家真正开始游戏后才写缓存
 
-    function startNewRun() {
-        runNumber++;
+    // countRun = false：只是生成标题页背景世界，不算玩家的一局。
+    function startNewRun(keepStartScreen = false, countRun = true) {
+        if (countRun) {
+            runNumber++;
+        }
 
         const seedText =
             `${Date.now()}-${randomInt(1000,9999)}`;
 
-        rngSeed =
-            hashString(seedText);
+        rngSeed = pendingSeed !== null
+            ? pendingSeed
+            : hashString(seedText);
+        pendingSeed = null;
 
         rngState = rngSeed;
 
@@ -5963,9 +6283,12 @@
             "新的取经世界已经生成。大路移动速度 ×5，自由探索荒野吧。"
         );
 
-        document.getElementById(
-            "startScreen"
-        ).classList.remove("active");
+        if (!keepStartScreen) {
+            document.getElementById(
+                "startScreen"
+            ).classList.remove("active");
+            savingEnabled = true;
+        }
 
         document.getElementById(
             "hud"
@@ -5976,30 +6299,456 @@
         ).classList.add("hidden");
     }
 
+    /*
+        ============================================================
+        开场界面与导航系统兼容层（5.21.1）
+        ------------------------------------------------------------
+        视频式开场已经移除了旧版“导航系统开关”视觉控件。
+        旧代码如果继续直接读取 navigationToggle，就会因为元素不存在
+        而在页面启动阶段抛出：
+            TypeError: null is not an object
+
+        现在导航默认保持开启；如果未来重新加入导航开关，
+        下面的代码也会自动兼容，不会再次出现空元素报错。
+        ============================================================
+    */
+
     const navigationToggle = document.getElementById("navigationToggle");
     const navigationToggleText = document.getElementById("navigationToggleText");
 
-    navigationToggle.addEventListener("change", () => {
-        navigationEnabled = navigationToggle.checked;
-        navigationToggleText.textContent = navigationEnabled ? "已启用" : "已关闭";
-
+    function applyNavigationUIState() {
         const panel = document.getElementById("navigationPanel");
-        panel.style.display = navigationEnabled ? "block" : "none";
 
-        if (!navigationEnabled) {
-            clearNavigationTarget();
+        if (panel) {
+            panel.style.display = navigationEnabled ? "block" : "none";
         }
-    });
+
+        if (navigationToggleText) {
+            navigationToggleText.textContent = navigationEnabled
+                ? "已启用"
+                : "已关闭";
+        }
+    }
+
+    if (navigationToggle) {
+        navigationToggle.addEventListener("change", () => {
+            navigationEnabled = navigationToggle.checked;
+            applyNavigationUIState();
+
+            if (!navigationEnabled) {
+                clearNavigationTarget();
+            }
+        });
+    }
+
+    applyNavigationUIState();
 
     document.getElementById(
         "startButton"
     ).addEventListener(
         "click",
         () => {
-            navigationEnabled = navigationToggle.checked;
-            startNewRun();
+            /*
+                5.21 视频式开场没有显示导航开关，
+                因此这里直接沿用默认导航状态。
+                如果页面存在旧版开关，则优先读取旧版开关的值。
+            */
+            navigationEnabled = navigationToggle
+                ? navigationToggle.checked
+                : true;
+
+            applyNavigationUIState();
+            playOpening();
         }
     );
+
+    /*
+        ============================================================
+        视频式开场（5.22）
+        标题页 -> “启程西行”加载页 -> 长安红毯：玄奘骑白马出发 -> 进入游戏
+        ============================================================
+    */
+    let openingState = null;
+    let openingBusy = false;
+    const OPENING_ORIGIN = new THREE.Vector3(0, 0, -3000);
+    const $el = id => document.getElementById(id);
+
+    function buildOpeningScene() {
+        const g = new THREE.Group();
+        const mat = (color, extra) => new THREE.MeshStandardMaterial(Object.assign({ color, roughness: 1 }, extra));
+        const add = (geo, m, x, y, z) => {
+            const mesh = new THREE.Mesh(geo, m);
+            mesh.position.set(x, y, z);
+            mesh.castShadow = mesh.receiveShadow = true;
+            g.add(mesh);
+            return mesh;
+        };
+        const ground = add(new THREE.PlaneGeometry(500, 500), mat(0xd9c08c), 0, -0.03, 60);
+        ground.rotation.x = -Math.PI / 2;
+        add(new THREE.BoxGeometry(7, 0.08, 132), mat(0xb3202a), 0, 0.02, 56);
+        for (const sx of [-3.6, 3.6]) add(new THREE.BoxGeometry(0.35, 0.1, 132), mat(0xe0b85a), sx, 0.04, 56);
+
+        // 两侧观礼的人群（实例化，几百人也很轻）
+        const N = 760;
+        const bodies = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.34, 0.42, 1.6, 6), mat(0xffffff), N);
+        const heads = new THREE.InstancedMesh(new THREE.SphereGeometry(0.28, 6, 5), mat(0xe6bf9a), N);
+        const palette = [0x3d5f8a, 0x9c3a34, 0xc9b98f, 0x4f6b4a, 0x6f5a8a, 0xb0a48a].map(c => new THREE.Color(c));
+        const m4 = new THREE.Matrix4();
+        for (let i = 0; i < N; i++) {
+            const side = i % 2 ? 1 : -1;
+            const row = Math.floor(i / 2);
+            const x = side * (6.4 + (row % 6) * 1.5 + Math.random() * 0.4);
+            const z = 6 + Math.floor(row / 6) * 1.6 + Math.random() * 0.4;
+            m4.setPosition(x, 0.8, z);
+            bodies.setMatrixAt(i, m4);
+            bodies.setColorAt(i, palette[(Math.random() * palette.length) | 0]);
+            m4.setPosition(x, 1.8, z);
+            heads.setMatrixAt(i, m4);
+        }
+        g.add(bodies, heads);
+
+        // 旗帜、华盖
+        for (let i = 0; i < 9; i++) {
+            for (const sx of [-1, 1]) {
+                add(new THREE.CylinderGeometry(0.08, 0.08, 6, 5), mat(0x6a4a2a), sx * 5.2, 3, 14 + i * 11);
+                add(new THREE.BoxGeometry(1.5, 3.2, 0.1), mat(0xb3202a), sx * 5.2, 4.2, 14 + i * 11);
+            }
+        }
+        add(new THREE.CylinderGeometry(0.1, 0.1, 6.5, 6), mat(0x6a4a2a), -4.6, 3.2, 26);
+        add(new THREE.ConeGeometry(3.4, 1.4, 12), mat(0xf0c440), -4.6, 6.8, 26);
+        add(new THREE.CylinderGeometry(0.4, 0.5, 1.7, 6), mat(0xe4b83a), -3.6, 0.85, 26);
+
+        // 城墙、城门与两侧殿宇
+        add(new THREE.BoxGeometry(260, 15, 4), mat(0xb9b39f), 0, 7.5, 128);
+        add(new THREE.BoxGeometry(11, 10, 4.4), mat(0x2b2723), 0, 5, 128);
+        add(new THREE.BoxGeometry(18, 4, 6), mat(0x9c3a2f), 0, 17, 128);
+        for (const sx of [-1, 1]) {
+            const hall = buildHouse(26, 18, 2, false);
+            hall.position.set(sx * 34, 0, 60);
+            hall.rotation.y = -sx * Math.PI / 2;
+            g.add(hall);
+            const tower = buildHouse(20, 14, 2, false);
+            tower.position.set(sx * 30, 0, 100);
+            g.add(tower);
+        }
+        const light = new THREE.DirectionalLight(0xfff0d0, 1.1);
+        light.position.set(-40, 60, -30);
+        g.add(light);
+        return g;
+    }
+
+
+    function beginOpeningScene() {
+        const group = buildOpeningScene();
+        group.position.copy(OPENING_ORIGIN);
+        scene.add(group);
+        openingState = {
+            t: 0,
+            group,
+            savedPos: playerGroup.position.clone(),
+            savedRotY: playerGroup.rotation.y,
+            ending: false
+        };
+        $el("hud").style.display = "none";
+        $el("openingSkip").style.display = "block";
+        const fade = $el("openingFade");
+        fade.style.transition = "none";
+        fade.style.opacity = 1;
+        requestAnimationFrame(() => {
+            fade.style.transition = "opacity 1s";
+            fade.style.opacity = 0;
+        });
+    }
+
+    const OPENING_LENGTH = 12;
+
+    function updateOpening(delta) {
+        const o = openingState;
+        o.t += delta;
+        const t = o.t;
+        const z = 4 + t * 4.4;
+        playerGroup.visible = true;
+        playerGroup.position.set(OPENING_ORIGIN.x, 0, OPENING_ORIGIN.z + z);
+        // 马头在模型里朝 +X，前进方向是 +Z，所以要转 -90°（与游戏内 yaw - π/2 一致）。
+        playerGroup.rotation.y = -Math.PI / 2;
+        animatePlayerModel(delta, true);
+
+        // 镜头：先在马后方偏右，再缓缓绕到侧面
+        const k = Math.min(1, t / OPENING_LENGTH);
+        const a = Math.PI + 0.45 + k * 1.25;
+        const R = 12 - k * 3;
+        const H = 3.6 - k * 1.1;
+        camera.position.set(
+            playerGroup.position.x + Math.sin(a) * R,
+            H,
+            playerGroup.position.z + Math.cos(a) * R
+        );
+        camera.lookAt(playerGroup.position.x, 1.7, playerGroup.position.z + 2);
+
+
+        if (t > OPENING_LENGTH - 0.9 && !o.ending) endOpening();
+    }
+
+    function endOpening() {
+        const o = openingState;
+        if (!o || o.ending) return;
+        o.ending = true;
+        const fade = $el("openingFade");
+        fade.style.transition = "opacity .7s";
+        fade.style.opacity = 1;
+        setTimeout(() => {
+            scene.remove(o.group);
+            playerGroup.position.copy(o.savedPos);
+            playerGroup.rotation.y = o.savedRotY;
+            openingState = null;
+            camera.position.set(player.position.x, player.position.y + 28, player.position.z - 28);
+            camera.lookAt(player.position.x, player.position.y + 0.7, player.position.z);
+            $el("openingSkip").style.display = "none";
+            $el("hud").style.display = "block";
+            showMessage("出发吧。前方的路，交给你自己选择。");
+            openingBusy = false;
+            savingEnabled = true;
+            fade.style.opacity = 0;
+        }, 750);
+    }
+
+    function playOpening() {
+        if (openingBusy) return;
+        openingBusy = true;
+        $el("startScreen").classList.remove("active");
+        const box = $el("voyage");
+        box.classList.add("show");
+        const bar = $el("voyageBar"), text = $el("voyageText");
+        const steps = ["正在展开沿途风景", "正在铺开长安街市", "正在集结取经队伍", "即将启程"];
+        const t0 = performance.now();
+        let built = false;
+        (function step() {
+            const p = Math.min(1, (performance.now() - t0) / 3200);
+            bar.style.width = `${p * 100}%`;
+            text.textContent = `${steps[Math.min(3, (p * 4) | 0)]} · ${Math.round(p * 100)}%`;
+            if (p > 0.3 && !built) {
+                built = true;
+                startNewRun(true);
+                $el("hud").style.display = "none";
+            }
+            if (p < 1) {
+                requestAnimationFrame(step);
+            } else {
+                box.classList.remove("show");
+                beginOpeningScene();
+            }
+        })();
+    }
+
+    $el("openingSkip").addEventListener("click", endOpening);
+    addEventListener("keydown", e => {
+        if (openingState && ["Escape", "Space", "Enter"].includes(e.code)) {
+            e.preventDefault();
+            endOpening();
+        }
+    });
+    $el("settingsButton").addEventListener("click", () => {
+        const b = $el("settingsButton");
+        b.textContent = "设置（敬请期待）";
+        setTimeout(() => { b.innerHTML = "<span>⚙</span> 设置"; }, 1600);
+    });
+
+    /*
+        ============================================================
+        存档系统（5.28）
+        世界由“种子”决定，所以存档只记种子 + 进度，文件很小：
+        玩家位置与状态、队伍、背包、昼夜、已拾取资源、已激活路牌、
+        已触发事件、已用客栈。读档 = 用同一种子重新生成世界，再套上进度。
+        三种方式：下载存档 / 上传存档 / 浏览器自动缓存（继续旅程）。
+        ============================================================
+    */
+    const SAVE_KEY = "wodeXiyouSave_v1";
+
+    function gatherSave() {
+        return {
+            game: "我的西游",
+            version: 1,
+            savedAt: new Date().toISOString(),
+            seed: rngSeed,
+            runNumber,
+            player: {
+                x: player.position.x,
+                z: player.position.z,
+                yaw: player.yaw,
+                hp: player.hp,
+                spirit: player.spirit,
+                distance: player.distance
+            },
+            party: party.map(c => c.id),
+            inventory: { ...inventory },
+            dayTime,
+            collected: resources.flatMap((r, i) => r.userData.active === false ? [i] : []),
+            signs: signposts.flatMap((g, i) => g.userData.active ? [i] : []),
+            events: worldEvents.flatMap((e, i) => e.userData.used ? [i] : []),
+            inns: buildings.flatMap((b, i) => b.used ? [i] : [])
+        };
+    }
+
+    function applySave(data) {
+        if (!data || data.game !== "我的西游" || typeof data.seed !== "number") {
+            throw new Error("这不是《我的西游》的存档文件");
+        }
+
+        const savedParty = (data.party || [])
+            .map(id => characters.find(c => c.id === id))
+            .filter(Boolean);
+        if (savedParty.length) {
+            party = savedParty;
+            pendingParty = [...savedParty];
+        }
+
+        pendingSeed = data.seed >>> 0;
+        runNumber = Math.max(1, data.runNumber | 0);
+        startNewRun(false, false);
+
+        const p = data.player || {};
+        const num = (v, d) => Number.isFinite(+v) ? +v : d;
+        const half = CONFIG.worldHalf;
+        const x = THREE.MathUtils.clamp(num(p.x, 0), -half, half);
+        const z = THREE.MathUtils.clamp(num(p.z, 0), -half, half);
+        player.position.set(x, terrainHeight(x, z), z);
+        player.yaw = num(p.yaw, 0);
+        player.hp = THREE.MathUtils.clamp(num(p.hp, player.maxHp), 1, player.maxHp);
+        player.spirit = THREE.MathUtils.clamp(num(p.spirit, player.maxSpirit), 0, player.maxSpirit);
+        player.distance = Math.max(0, num(p.distance, 0));
+
+        const inv = data.inventory || {};
+        inventory.gold = Math.max(0, num(inv.gold, 0));
+        inventory.food = Math.max(0, num(inv.food, 0));
+        inventory.herbs = Math.max(0, num(inv.herbs, 0));
+        dayTime = num(data.dayTime, dayTime);
+
+        for (const i of data.collected || []) {
+            if (resources[i]) {
+                resources[i].userData.active = false;
+                resources[i].visible = false;
+            }
+        }
+        for (const i of data.signs || []) {
+            if (signposts[i]) {
+                signposts[i].userData.active = true;
+                if (signposts[i].userData.node) {
+                    signposts[i].userData.node.discovered = true;
+                }
+            }
+        }
+        for (const i of data.events || []) {
+            if (worldEvents[i]) {
+                worldEvents[i].userData.used = true;
+            }
+        }
+        for (const i of data.inns || []) {
+            if (buildings[i]) {
+                buildings[i].used = true;
+            }
+        }
+
+        rebuildCompanions();
+        camera.position.set(x, player.position.y + 28, z - 28);
+        camera.lookAt(x, player.position.y + 0.7, z);
+        document.getElementById("hud").style.display = "block";
+        showMessage(`已读取存档：第 ${runNumber} 局`);
+    }
+
+    function writeCache() {
+        try {
+            localStorage.setItem(SAVE_KEY, JSON.stringify(gatherSave()));
+        } catch (err) {
+            /* 隐私模式或空间不足：忽略，仍可用“下载存档”。 */
+        }
+    }
+
+    function readCache() {
+        try {
+            const raw = localStorage.getItem(SAVE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (err) {
+            return null;
+        }
+    }
+
+    function downloadSave() {
+        const data = gatherSave();
+        const blob = new Blob([JSON.stringify(data, null, 1)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `我的西游存档_第${data.runNumber}局.json`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        writeCache();
+        showMessage("存档已下载，同时已保存到浏览器缓存");
+    }
+
+    const saveFileInput = document.getElementById("saveFileInput");
+    saveFileInput.addEventListener("change", () => {
+        const file = saveFileInput.files && saveFileInput.files[0];
+        saveFileInput.value = "";
+        if (!file) {
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            try {
+                applySave(JSON.parse(reader.result));
+                writeCache();
+            } catch (err) {
+                showMessage("读取存档失败：" + err.message);
+                alert("读取存档失败：" + err.message);
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    document.getElementById("importButton").addEventListener("click", () => saveFileInput.click());
+    document.getElementById("saveUploadButton").addEventListener("click", () => saveFileInput.click());
+    document.getElementById("saveDownloadButton").addEventListener("click", downloadSave);
+
+    // “继续旅程”只在浏览器里有缓存存档时出现，并真正读取那份存档。
+    const continueButton = document.getElementById("continueButton");
+    continueButton.style.display = readCache() ? "block" : "none";
+    continueButton.addEventListener("click", () => {
+        const cached = readCache();
+        if (!cached) {
+            continueButton.style.display = "none";
+            return;
+        }
+        try {
+            applySave(cached);
+        } catch (err) {
+            showMessage("缓存存档无法读取：" + err.message);
+            continueButton.style.display = "none";
+        }
+    });
+
+    setInterval(() => {
+        if (savingEnabled && !openingState) {
+            writeCache();
+        }
+    }, 10000);
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden && savingEnabled && !openingState) {
+            writeCache();
+        }
+    });
+    addEventListener("beforeunload", () => {
+        if (savingEnabled && !openingState) {
+            writeCache();
+        }
+    });
+
+    /*
+        页面打开时先生成一次真实的 3D 西游世界作为标题背景。
+        “继续旅程”直接进入这个世界；“开始西游”重新生成一局。
+    */
+    startNewRun(true, false);
 
     /*
         ============================================================
@@ -6147,6 +6896,12 @@
                 clock.getDelta(),
                 0.05
             );
+
+        if (openingState) {
+            updateOpening(delta);
+            renderer.render(scene, camera);
+            return;
+        }
 
         updatePlayer(delta);
         updateCompanions(delta);
